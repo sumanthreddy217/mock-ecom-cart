@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+.app { font-family: Arial, sans-serif; max-width: 1200px; margin: 0 auto; padding: 20px; }
+header { text-align: center; }
+main { display: flex; flex-wrap: wrap; gap: 20px; }
+.products, .cart { flex: 1; min-width: 300px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+.product { border: 1px solid #ccc; padding: 10px; text-align: center; }
+.cart ul { list-style: none; padding: 0; }
+.cart li { display: flex; justify-content: space-between; margin: 5px 0; }
+.modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border: 1px solid #ccc; z-index: 1000; }
