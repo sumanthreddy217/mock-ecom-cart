@@ -1,22 +1,12 @@
 import React, { useContext } from "react";
 import { CartContext } from "../context/CartContext";
-import { addToCart } from "../services/api";
 
 const ProductCard = ({ product }) => {
-  const { setCartItems } = useContext(CartContext);
+  const { addToCart } = useContext(CartContext);
 
-  const handleAddToCart = async () => {
-    try {
-      const updatedCart = await addToCart({
-        productId: product._id,
-        qty: 1,
-      });
-      setCartItems(updatedCart.items); // Update the cart context
-      alert(`${product.name} added to cart ✅`);
-    } catch (error) {
-      console.error("Error adding to cart:", error);
-      alert("Failed to add item to cart.");
-    }
+  const handleAddToCart = () => {
+    addToCart(product);
+    alert(`${product.name} added to cart ✅`);
   };
 
   return (

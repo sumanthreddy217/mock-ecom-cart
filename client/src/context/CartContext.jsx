@@ -1,30 +1,28 @@
 import { createContext, useState, useEffect } from "react";
-import { fetchProducts, addToCart, getCart } from "../services/api";
 
-// ✅ Create context
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
 
-  // ✅ Load cart from localStorage
+  // Load cart from localStorage
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
     setCart(savedCart);
   }, []);
 
-  // ✅ Save cart to localStorage
+  // Save cart to localStorage
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
-  // ✅ Add to cart
+  // Add to cart
   const addToCart = (product) => {
     setCart((prevCart) => {
-      const existing = prevCart.find((item) => item._id === product._id);
+      const existing = prevCart.find((item) => item.id === product.id);
       if (existing) {
         return prevCart.map((item) =>
-          item._id === product._id
+          item.id === product.id
             ? { ...item, quantity: item.quantity + 1 }
             : item
         );
@@ -34,21 +32,19 @@ export const CartProvider = ({ children }) => {
     });
   };
 
-  // ✅ Update quantity
+  // Update quantity
   const updateQty = (id, qty) => {
     setCart((prevCart) =>
-      prevCart.map((item) =>
-        item._id === id ? { ...item, quantity: qty } : item
-      )
+      prevCart.map((item) => (item.id === id ? { ...item, quantity: qty } : item))
     );
   };
 
-  // ✅ Remove item
+  // Remove item
   const removeItem = (id) => {
-    setCart((prevCart) => prevCart.filter((item) => item._id !== id));
+    setCart((prevCart) => prevCart.filter((item) => item.id !== id));
   };
 
-  // ✅ Clear cart
+  // Clear cart
   const clearCart = () => setCart([]);
 
   return (

@@ -1,24 +1,52 @@
-let cart = []; // temporary in-memory cart
+import { products } from "../data/products.js"; // Path must be correct
 
-export const addToCart = (req, res) => {
-  const { productId, qty } = req.body;
-  const existingItem = cart.find((item) => item.productId === productId);
-
-  if (existingItem) {
-    existingItem.qty += qty;
-  } else {
-    cart.push({ productId, qty });
-  }
-
-  res.json({ message: "Item added", items: cart });
-};
+let cart = []; // Replace with DB logic for persistence
 
 export const getCart = (req, res) => {
-  res.json({ items: cart });
+  try {
+    const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+    res.json({ items: cart, total });
+  } catch (err) {
+    console.error("Get cart error:", err);
+    res.status(500).json({ error: "Server error fetching cart" });
+  }
+};
+
+export const addToCart = (req, res) => {
+  try {
+    console.log('Add to cart payload:', req.body);
+    const { productId, qty } = req.body;
+
+    if (!productId || !qty || qty < 1) {
+      return res.status(400).json({ error: "Product ID and positive quantity required" });
+    }
+    const product = products.find(p => p.id === productId);
+    if (!product) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+
+    // Cart logic
+    const cartItem = cart.find(i => i.productId === productId);
+    if (cartItem) {
+      cartItem.qty += qty;
+    } else {
+      cart.push({ productId, name: product.name, price: product.price, qty });
+    }
+    res.status(201).json({ message: "Added to cart", cart });
+  }
+  catch (err) {
+    console.error("Add to cart error:", err);
+    res.status(500).json({ error: "Server error adding to cart" });
+  }
 };
 
 export const removeFromCart = (req, res) => {
-  const { id } = req.params;
-  cart = cart.filter((item) => item.productId !== id);
-  res.json({ message: "Item removed", items: cart });
+  try {
+    const id = Number(req.params.id);
+    cart = cart.filter(item => item.productId !== id);
+    res.json({ message: "Removed from cart", cart });
+  } catch (err) {
+    console.error("Remove from cart error:", err);
+    res.status(500).json({ error: "Server error - could not remove from cart" });
+  }
 };

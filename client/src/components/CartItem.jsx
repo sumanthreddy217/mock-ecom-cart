@@ -12,21 +12,21 @@ const CartItem = ({ item, updateQty, removeItem }) => {
 
       <div className="flex items-center gap-3">
         <button
-          onClick={() => updateQty(item._id, item.quantity - 1)}
+          onClick={() => updateQty(item.id, item.quantity - 1)}
           className="bg-gray-200 px-2 rounded"
         >
           -
         </button>
         <span>{item.quantity}</span>
         <button
-          onClick={() => updateQty(item._id, item.quantity + 1)}
+          onClick={() => updateQty(item.id, item.quantity + 1)}
           className="bg-gray-200 px-2 rounded"
         >
           +
         </button>
         <button
-          onClick={() => removeItem(item._id)}
-          className="bg-red-500 text-white px-3 py-1 rounded-md"
+          onClick={() => removeItem(item.id)}
+          className="bg-red-500 text-white px-3 py-1 rounded-md cursor-pointer"
         >
           Remove
         </button>
