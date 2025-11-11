@@ -26,9 +26,9 @@ A full-stack shopping cart app for Vibe Commerce internship screening.
 4. Open http://localhost:3000 in your browser.
 
 ## Screenshots
-- [Products Page](screenshots/products.png)
-- [Cart View](screenshots/cart.png)
-- [Checkout Modal](screenshots/checkout.png)
+- [Products Page]-
+- [Cart View]-
+- [Checkout Modal]-
 
 ## Explanation
 - Products are fetched from the backend (local DB or Fake Store API).
@@ -36,7 +36,7 @@ A full-stack shopping cart app for Vibe Commerce internship screening.
 - Checkout generates a mock receipt and clears the cart.
 
 ## Demo Video
-[1-2 min Demo Video](https://loom.com/your-unlisted-link)  // Replace with your Loom/YouTube link
+[1-2 min Demo Video]-
 
 ## Submission
-GitHub Repo: [Your Repo Link]
+GitHub Repo: [https://github.com/sumanthreddy217/mock-ecom-cart]
